@@ -29,7 +29,7 @@ export default class Question extends DbObject{
         this.readOnly = true;
       }
       console.warn(`TO-DO: Question.js:saveAnswer fromUserId[${fromUserId}] toUserId[${toUserId}] optionId[${optionId}]`)
-      await sleep(2000);
+      await sleep();
 
     } catch (error) {
       success = false;

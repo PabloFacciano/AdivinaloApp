@@ -7,6 +7,7 @@ function random(min, max){
   return Math.floor(Math. random()*max) + min;
 }
 function sleep(delay) {
+  if (!delay) delay = random(1000,3000);
   return new Promise((resolve) => setTimeout(resolve, delay))
 }
 
@@ -70,13 +71,25 @@ function newUser(id, name){
 
   const NO_FRIENDS = [];
   const NO_BLOCKED = [];
+  const ONLINE = random(0,10) >= 5;
 
   return new User(
     id,
-    name,
+    `${name} #${id}`,
     getQuestions(id,id),
-    NO_FRIENDS,
-    NO_BLOCKED
+    [
+      random(100000,1000000),
+      random(100000,1000000),
+      random(100000,1000000),
+      random(100000,1000000),
+      random(100000,1000000)
+    ],
+    [
+      random(100000,1000000),
+      random(100000,1000000),
+      random(100000,1000000)
+    ],
+    ONLINE
   );
 }
 
