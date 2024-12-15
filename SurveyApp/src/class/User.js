@@ -50,4 +50,18 @@ export default class User extends DbObject {
     await sleep(2000);
     this.friendsId.push(userId);
   }
+
+  async blockUser(userId){
+    /* Uso en Profile */
+    console.warn(`TO-DO: User.js:block user[${userId}]`)
+    await sleep(2000);
+    this.blockedsId.push(userId);
+  }
+
+  async unblockUser(userId){
+    /* Uso en Profile */
+    console.warn(`TO-DO: User.js:unblock user[${userId}]`)
+    await sleep(2000);
+    this.blockedsId = this.blockedsId.filter((u) => u != userId);
+  }
 }

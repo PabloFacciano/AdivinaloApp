@@ -142,13 +142,13 @@ export default {
           id: 'block',
           text: 'Bloquear',
           visible: !this.isCurrentUser && !this.isBlocked,
-          action: this.alert
+          action: this.blockUser
         },
         {
           id: 'block',
           text: 'Desbloquear',
           visible: !this.isCurrentUser && this.isBlocked,
-          action: this.alert
+          action: this.unblockUser
         }
       ];
       return buttons.filter(a => a.visible);
@@ -162,19 +162,36 @@ export default {
     ask(){
       this.$router.push('/questions/' + this.id);
     },
-    addFriend(){
+    async addFriend(){
       try {
         this.loadingAction = 'addFriend';
-        this.mainStore.currentUser.addFriend(this.id);
+        await this.mainStore.currentUser.addFriend(this.id);
       } catch (error) {
         console.error(`AppPageProfile.vue -- Cannot add friend [${this.id}]`, error)
       } finally {
         this.loadingAction = null;
       }
     },
-    alert(){
-      alert("Hey!");
-    }
+    async blockUser(){
+      try {
+        this.loadingAction = 'block';
+        await this.mainStore.currentUser.blockUser(this.id);
+      } catch (error) {
+        console.error(`AppPageProfile.vue -- Cannot block user [${this.id}]`, error)
+      } finally {
+        this.loadingAction = null;
+      }
+    },
+    async unblockUser(){
+      try {
+        this.loadingAction = 'block';
+        await this.mainStore.currentUser.unblockUser(this.id);
+      } catch (error) {
+        console.error(`AppPageProfile.vue -- Cannot unblock user [${this.id}]`, error)
+      } finally {
+        this.loadingAction = null;
+      }
+    },
   }
 };
 </script>
