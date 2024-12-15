@@ -17,10 +17,12 @@ const routes = [
   },
   { 
     path: '/friends/:list',  
+    props: true,
     children: [
       { 
         path: '', 
         component: AppFriends,
+        props: true,
         name: 'friends',   
         meta: {
           title: 'Amigos'
