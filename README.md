@@ -1,4 +1,4 @@
-# SurveyApp
+# AdivinaloApp
 
 ## UI design
 https://www.figma.com/design/KolKk8bqaZj5huXiBPYT6l/SurveyApp?node-id=0-1&node-type=canvas&t=axIMKPt4I4gztFn4-0
