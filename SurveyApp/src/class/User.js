@@ -3,7 +3,7 @@ import Pagination from "./Pagination";
 import { getQuestions, sleep, newUser } from "../db/mocks-utils";
 
 export default class User extends DbObject {
-  constructor(id, name, questions, friendsId, blockedsId, online) {
+  constructor(id, name, questions, friendsId, blockedsId, online, languageId, countryId) {
     super(id);
     this.name = name ?? '<<Default Name>>'; // String
     this.questions = questions ?? []; // Array
@@ -11,6 +11,8 @@ export default class User extends DbObject {
     this.friendsId = friendsId ?? []; // Array
     this.blockedsId = blockedsId; // Array
     this.online = online; // Boolean
+    this.languageId = languageId;
+    this.countryId = countryId;
   }
 
   get initials() {
