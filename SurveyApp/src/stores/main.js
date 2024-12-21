@@ -7,10 +7,15 @@ export const useMainStore = defineStore('main', {
     darkMode: true,
     users: {},
     loadingUser: {},
-    currentUserId: 1234
+    currentUserId: null,
+    auth: {
+      session: null
+    }
   }),
   actions: {
     async getUser(_id) {
+      if (_id == null) return;
+
       if (_id in this.users){
         return this.users[_id];
       }

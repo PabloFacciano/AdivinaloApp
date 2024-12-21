@@ -1,25 +1,66 @@
+import axios from 'axios';
+import { createClient } from '@supabase/supabase-js'
+import { useMainStore } from '../stores/main'
 
-import * as mock from './mocks-utils';
+const supabaseOptions = {
+  db: {
+    schema: 'public',
+  },
+  auth: {
+    autoRefreshToken: true,
+    persistSession: true,
+    detectSessionInUrl: true
+  },
+  global: {
+    headers: { 'x-app': 'AdivinaloApp' },
+  },
+}
 
-export async function getUserById(userId){
-  if (!userId){
-    debugger;
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseKey = import.meta.env.VITE_SUPABASE_KEY;
+
+const supabase = createClient(supabaseUrl, supabaseKey, supabaseOptions);
+
+supabase.graphqlquery = async (query) => {
+  try {
+    const response = await axios.post(`${supabaseUrl}/graphql/v1`,
+      { query },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${supabaseKey}`,
+        },
+      }
+    );
+
+    const { data, errors } = response.data;
+
+    if (errors) {
+      throw new Error('Supabase GraphQL error found', { cause: errors })
+    } else {
+      return data;
+    }
+  } catch (error) {
+    console.error('Supabase.js -- Error fetching data:', error);
+    throw error;
   }
-  await sleep();
-  return mock.newUser(userId);
 }
 
-export async function upsertQuestionAnswer(question){
-  console.warn("TO-DO: supabase.js:upsertQuestionAnswer")
-  await mock.sleep();
-}
+supabase.auth.onAuthStateChange((_, _session) => {
+  if (_ == "INITIAL_SESSION" && _session == null) return;
 
-export async function getQuestionsForUser(toUserId){
-  console.warn(`TO-DO: supabase.js:getQuestionsForUser [${toUserId}]`)
-  await sleep();
-  return mock.getQuestions();
-}
+  const mainStore = useMainStore();
 
+  if (_ == "SIGNED_OUT"){
+    mainStore.auth.session = null;
+    mainStore.currentUserId = null;
+    return;
+  }
+  if (!_session){
+    mainStore.auth.session = _session;
+    mainStore.currentUserId = _session.user?.id;
+    mainStore.getUser(mainStore.currentUserId);
+  }
+})
 
-
-
+export default supabase;
