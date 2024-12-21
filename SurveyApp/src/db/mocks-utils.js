@@ -69,6 +69,8 @@ function getQuestions(fromUserId, toUserId){
 
 function newUser(id, name){
 
+  const DEFAULT_COUNTRY = 1;
+  const DEFAULT_LANGUAGE = 1;
   const NO_FRIENDS = [];
   const NO_BLOCKED = [];
   const ONLINE = random(0,10) >= 5;
@@ -80,16 +82,17 @@ function newUser(id, name){
     [
       random(100000,1000000),
       random(100000,1000000),
-      random(100000,1000000),
-      random(100000,1000000),
       random(100000,1000000)
     ],
     [
       random(100000,1000000),
       random(100000,1000000),
+      random(100000,1000000),
       random(100000,1000000)
     ],
-    ONLINE
+    ONLINE,
+    DEFAULT_COUNTRY,
+    DEFAULT_LANGUAGE
   );
 }
 
