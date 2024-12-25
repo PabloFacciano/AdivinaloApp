@@ -4,7 +4,7 @@ import { useMainStore } from '../stores/main'
 
 const supabaseOptions = {
   db: {
-    schema: 'public',
+    schema: 'appv0',
   },
   auth: {
     autoRefreshToken: true,
@@ -21,30 +21,6 @@ const supabaseKey = import.meta.env.VITE_SUPABASE_KEY;
 
 const supabase = createClient(supabaseUrl, supabaseKey, supabaseOptions);
 
-supabase.graphqlquery = async (query) => {
-  try {
-    const response = await axios.post(`${supabaseUrl}/graphql/v1`,
-      { query },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${supabaseKey}`,
-        },
-      }
-    );
-
-    const { data, errors } = response.data;
-
-    if (errors) {
-      throw new Error('Supabase GraphQL error found', { cause: errors })
-    } else {
-      return data;
-    }
-  } catch (error) {
-    console.error('Supabase.js -- Error fetching data:', error);
-    throw error;
-  }
-}
 
 supabase.auth.onAuthStateChange((_, _session) => {
   if (_ == "INITIAL_SESSION" && _session == null) return;
@@ -56,7 +32,8 @@ supabase.auth.onAuthStateChange((_, _session) => {
     mainStore.currentUserId = null;
     return;
   }
-  if (!_session){
+  
+  if (_session){
     mainStore.auth.session = _session;
     mainStore.currentUserId = _session.user?.id;
     mainStore.getUser(mainStore.currentUserId);
