@@ -3,6 +3,7 @@ import Pagination from "./Pagination";
 import supabase from "../db/supabase"
 import { getQuestions, sleep, isValidUUID } from "../db/mocks-utils";
 import Question from "./Question";
+import QuestionOption from "./QuestionOption";
 
 export default class User extends DbObject {
   constructor(id, name, questions, friendsId, blockedsId, online, languageId, countryId) {
@@ -55,13 +56,18 @@ export default class User extends DbObject {
         })
       });
 
-    let call3 = supabase
-      .rpc('get_user_friends', {
-        input_user_id: _id
-      }).then(result => {
-        friends = result.data.filter(u => u.disabled == false).map(friend => friend.id)
-        blockeds = result.data.filter(u => u.disabled == true).map(blocked => blocked.id)
-      });
+    let call3 = sleep();
+    
+    if (_currentUserId == _id){
+      // if is it the current user, get also friends and blocked users
+      call3 = supabase
+        .rpc('get_user_friends', {
+          input_user_id: _id
+        }).then(result => {
+          friends = result.data.filter(u => u.disabled == false).map(friend => friend.id)
+          blockeds = result.data.filter(u => u.disabled == true).map(blocked => blocked.id)
+        });
+    }
     
     await Promise.allSettled([ call1, call2, call3 ]);
     if (user){
@@ -73,23 +79,50 @@ export default class User extends DbObject {
     return user;
   }
 
+  /* Uso en Survey */
   static async getQuestionsFromOtherUser(fromUserId, toUserId, count) {
-    /* Uso en Survey */
-    console.warn(`TO-DO: User.js:getQuestionsForOtherUser fromUser[${fromUserId}] toUser[${toUserId}] count[${count}]`)
-    await sleep();
-    // toUserId = this.id
-    return getQuestions(fromUserId, toUserId);
+    let { data: rawQuestions, error } = await supabase
+      .rpc('get_unanswered_questions', {
+        from_user: fromUserId,
+        to_user: toUserId,
+        total_questions: count
+      });
+  
+    if (error) {
+      console.error("User.js:getQuestionsFromOtherUser -- Error fetching questions:", error);
+      return [];
+    }
+  
+    // Create a map to group options by question ID
+    const questionMap = new Map();
+  
+    rawQuestions.forEach(rawQuestion => {
+      // Create a QuestionOption object
+      let option = new QuestionOption(rawQuestion.option_id, rawQuestion.option_value);
+  
+      // Check if the question already exists in the map
+      if (!questionMap.has(rawQuestion.question_id)) {
+        // If not, create a new Question object
+        let question = new Question(
+          rawQuestion.question_id, // Use rawQuestion.question_id for the question ID
+          fromUserId,
+          toUserId,
+          rawQuestion.question,
+          [], // Initialize with an empty options array
+          null, // No option has been selected yet
+          rawQuestion.valid_option_id // Pass the valid option ID
+        );
+        questionMap.set(rawQuestion.question_id, question);
+      }
+  
+      // Add the option to the corresponding question's options array
+      questionMap.get(rawQuestion.question_id).options.push(option);
+    });
+  
+    // Convert the map values to an array
+    return Array.from(questionMap.values());
   }
   
-  async getQuestionsForThisUser() {
-    /* Uso en Profile */
-    console.warn(`TO-DO: User.js:getQuestionsForThisUser user[${this.id}]`)
-    await sleep();
-    // fromUserId = this.id
-    // toUserId = this.id
-    return getQuestions(this.id, this.id);
-  }
-
   async addFriend(userId){
     /* Uso en Profile */
     console.warn(`TO-DO: User.js:addFriend user[${userId}]`)
