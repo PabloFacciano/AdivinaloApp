@@ -2,6 +2,10 @@ import User from '../class/User'
 import Question from '../class/Question'
 import QuestionOption from '../class/QuestionOption'
 
+function isValidUUID(uuid) {
+  const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+  return uuidRegex.test(uuid);
+}
 
 function random(min, max){
   return Math.floor(Math. random()*max) + min;
@@ -101,5 +105,6 @@ export {
   random,
   sleep,
   newUser,
-  getQuestions
+  getQuestions,
+  isValidUUID
 }
