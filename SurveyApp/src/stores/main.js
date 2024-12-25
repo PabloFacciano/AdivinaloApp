@@ -24,7 +24,7 @@ export const useMainStore = defineStore('main', {
         return await this.loadingUser[_id];
       }
 
-      this.loadingUser[_id] = User.getFromDatabase(_id);
+      this.loadingUser[_id] = User.getFromDatabase(_id, this.currentUserId);
       this.users[_id] = await this.loadingUser[_id];
       delete this.loadingUser[_id];
 

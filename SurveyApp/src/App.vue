@@ -41,6 +41,7 @@ export default {
       })
     },
     handleSupabaseLoginErrors(){
+      if(!window.location.hash) return;
       var hash = window.location.hash.substr(1);
 
       var result = hash.split('&').reduce(function (res, item) {
