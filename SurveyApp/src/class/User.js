@@ -61,8 +61,8 @@ export default class User extends DbObject {
         .rpc('get_user_friends', {
           input_user_id: _id
         }).then(result => {
-          friends = result.data.filter(u => u.disabled == false).map(friend => friend.id)
-          blockeds = result.data.filter(u => u.disabled == true).map(blocked => blocked.id)
+          friends = result.data.filter(u => u.disabled == false).map(friend => friend.friend_user_id)
+          blockeds = result.data.filter(u => u.disabled == true).map(blocked => blocked.friend_user_id)
         });
     }
     
@@ -94,38 +94,41 @@ export default class User extends DbObject {
   }
   
   async addFriend(userid){
+    let ids = [this.id, userid].sort();
     /* Uso en Profile */
     await supabase
       .from('appuserfriend')
       .upsert({ 
-        fromuserid: this.id,
-        touserid: userid
+        fromuserid: ids[0],
+        touserid: ids[1]
       })
     this.friendsId.push(userid);
   }
 
-  async blockUser(userId){
+  async blockUser(userid){
+    let ids = [this.id, userid].sort();
     /* Uso en Profile */
     await supabase
     .from('appuserfriend')
     .upsert({ 
-      fromuserid: this.id,
-      touserid: userid,
+      fromuserid: ids[0],
+      touserid: ids[1],
       disabled: true
     })
-  this.blockedsId.push(userid);
+    this.blockedsId.push(userid);
   }
 
-  async unblockUser(userId){
+  async unblockUser(userid){
+    let ids = [this.id, userid].sort();
     /* Uso en Profile */
     await supabase
     .from('appuserfriend')
     .upsert({ 
-      fromuserid: this.id,
-      touserid: userid,
+      fromuserid: ids[0],
+      touserid: ids[1],
       disabled: false
     })
-    this.blockedsId = this.blockedsId.filter((u) => u != userId);
+    this.blockedsId = this.blockedsId.filter((u) => u != userid);
   }
 }
 
