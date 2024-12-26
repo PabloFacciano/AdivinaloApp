@@ -54,12 +54,12 @@
         </RouterLink>
         <RouterLink :to="`/profile/${this.$route.params.id}/stats`" class="py-2 px-4 text-center"
           exact-active-class="border-b-4 border-slate-200 font-medium"
-          v-if="this.isCurrentUser || (this.areFriends && !this.isBlocked)">
+          v-if="false && this.isCurrentUser || (this.areFriends && !this.isBlocked)">
           Estadísticas
         </RouterLink>
         <RouterLink :to="`/profile/${this.$route.params.id}/activity`" class="py-2 px-4 text-center"
           exact-active-class="border-b-4 border-slate-200 font-medium"
-          v-if="this.isCurrentUser">
+          v-if="false && this.isCurrentUser">
           Actividad
         </RouterLink>
       </div>
