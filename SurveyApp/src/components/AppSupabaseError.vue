@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full bg-zinc-800 p-8 my-4 text-center space-y-8 sm:w-3/5 lg:w-1/2 mx-auto sm:rounded-lg overflow-hidden shadow-lg dark:shadow-none dark:border dark:border-zinc-700">
+  <div class="w-full bg-zinc-800 p-8 my-4 text-center space-y-8 sm:w-3/5 lg:w-1/2 mx-auto sm:rounded-lg overflow-hidden dark:border dark:border-zinc-700">
     <div class="font-semibold">Ups! Algo salió mal</div>
     <table class="table-auto w-full text-start">
       <tr>

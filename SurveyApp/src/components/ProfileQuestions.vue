@@ -12,7 +12,7 @@
     </div>
 
     <div v-else
-      class="w-full bg-zinc-800 p-8 my-6 sm:w-3/5 lg:w-1/2 mx-auto sm:rounded-lg overflow-hidden shadow-lg dark:shadow-none dark:border dark:border-zinc-700">
+      class="w-full bg-zinc-800 p-8 my-6 sm:w-3/5 lg:w-1/2 mx-auto sm:rounded-lg overflow-hidden dark:border dark:border-zinc-700">
       <div>
 
         <div v-if="this.isCurrentLoggedinUser" class="space-y-4 flex flex-col items-center">

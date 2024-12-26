@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full bg-zinc-800 flex justify-between items-center p-4 sm:w-3/5 lg:w-1/2 mx-auto sm:rounded-lg overflow-hidden shadow-lg dark:shadow-none dark:border dark:border-zinc-700">
+    class="w-full bg-zinc-800 flex justify-between items-center p-4 sm:w-3/5 lg:w-1/2 mx-auto sm:rounded-lg overflow-hidden dark:border dark:border-zinc-700">
 
     <div v-text="this.message"></div>
     <div class="space-x-2">
