@@ -21,7 +21,8 @@
     "vue": "^3.4.29",
     "vue-gtag": "^2.0.1",
     "vue-rewards": "^1.0.1",
-    "vue-router": "^4.5.0"
+    "vue-router": "^4.5.0",
+    "vue-turnstile": "^1.0.11"
   },
   "devDependencies": {
     "@vitejs/plugin-basic-ssl": "^1.2.0",

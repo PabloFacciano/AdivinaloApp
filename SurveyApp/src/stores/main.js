@@ -4,7 +4,6 @@ import User from '../class/User'
 
 export const useMainStore = defineStore('main', {
   state: () => ({
-    darkMode: true,
     users: {},
     loadingUser: {},
     currentUserId: null,

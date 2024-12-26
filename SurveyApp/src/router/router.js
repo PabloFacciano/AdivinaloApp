@@ -12,6 +12,7 @@ import ProfileActivity from '../components/ProfileActivity.vue'
 
 const routes = [
   { 
+    name: 'currentFriends',
     path: '/friends', 
     redirect: '/friends/current'
   },
@@ -20,6 +21,7 @@ const routes = [
     props: true,
     children: [
       { 
+        name: 'friends',
         path: '', 
         component: AppFriends,
         props: true,
@@ -31,6 +33,7 @@ const routes = [
     ]
   },
   { 
+    name: 'profile',
     path: '/profile/:id', 
     component: AppPageProfile,
     props: true,
@@ -39,6 +42,7 @@ const routes = [
     },
     children: [
       { 
+        name: 'profileQuestions',
         path: 'questions', 
         component: ProfileQuestions,
         props: true,
@@ -48,6 +52,7 @@ const routes = [
         }
       },
       { 
+        name: 'profileStats',
         path: 'stats', 
         component: ProfileStats,
         props: true,
@@ -57,6 +62,7 @@ const routes = [
         }
       },
       { 
+        name: 'profileActivity',
         path: 'activity', 
         component: ProfileActivity,
         props: true,
@@ -66,6 +72,7 @@ const routes = [
         }
       },
       { 
+        name: 'profileMain',
         path: '', 
         component: ProfileMain,
         props: true,
@@ -80,6 +87,7 @@ const routes = [
     path: '/questions/:id',
     children: [      
       { 
+        name: 'survey',
         path: '', 
         component: AppSurvey,
         props: true,
@@ -98,6 +106,7 @@ const routes = [
     },
     children: [
       { 
+        name: 'feed',
         path: '', 
         component: HomeFeed,
         meta: {
