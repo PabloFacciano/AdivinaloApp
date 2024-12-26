@@ -21,10 +21,16 @@
 
     <div
     v-else
-    class="w-full bg-zinc-800 p-8 text-center space-y-4 sm:w-3/5 lg:w-1/2 mx-auto sm:rounded-lg overflow-hidden shadow-lg dark:shadow-none dark:border dark:border-zinc-700">
+    class="w-full bg-zinc-800 p-8 text-center sm:w-3/5 lg:w-1/2 mx-auto sm:rounded-lg overflow-hidden shadow-lg dark:shadow-none dark:border dark:border-zinc-700">
 
-      <div class=" text-2xl">Ya no quedan preguntas 😥</div>
-      <div>Estamos trabajando en esto.</div>
+      <div class="space-y-4" v-if="this.askingForCurrentUser">
+        <div class="text-2xl">Ya no quedan preguntas 😥</div>
+        <div>Respondiste todas las preguntas que teníamos...<br>Vuelve a intentarlo más tarde, agregamos preguntas nuevas todas las semanas!</div>
+      </div>
+      <div class="space-y-4" v-else>
+        <div class="text-2xl">Ya no quedan preguntas 😥</div>
+        <div>Tu amigo/a debe responder más preguntas para que vos puedas advinar.</div>
+      </div>
 
     </div>
 
