@@ -26,6 +26,7 @@
         <AppQuestionOption 
           v-for="option in data.options" 
           :key="option.id" 
+          :value="option.id"
           :text="option.value"
           :readOnly="isOptionReadOnly(option)" 
           :selected="isOptionSelected(option)"
@@ -36,6 +37,7 @@
 
         <AppQuestionOption 
           :text="'Prefiero no responder'"
+          :value="0"
           :readOnly="isOptionReadOnly({ id: 0 })" 
           :selected="isOptionSelected({ id: 0 })"
           :isValid="isOptionValid({ id: 0 })"

@@ -11,6 +11,7 @@
     'select-none': !this.selected,
     'select-text': this.selected
   }" class="w-full flex font-medium rounded-lg text-sm px-5 py-2.5 my-1 focus:outline-none">
+    <div class="size-1"><div :id="`reward-option-a-${this.value}`" class="size-1"></div></div>
     <svg v-if="!this.showSpinner && this.isValid" class="h-5 w-5 -ml-1 mr-3 " version="1.1"
       xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0,0,256,256">
       <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter"
@@ -54,7 +55,7 @@
         d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
       </path>
     </svg>
-    <span v-text="this.text"></span>
+    <div class="" v-text="this.text"></div>
   </button>
 </template>
 
@@ -63,6 +64,10 @@
 export default {
   emits: ['selectedOption'],
   props: {
+    value: {
+      type: Number,
+      required: false
+    },
     text: {
       type: String,
       required: true
@@ -96,6 +101,20 @@ export default {
   methods: {
     selectOption() {
       this.$emit('selectedOption');
+      this.balloonsReward();
+    },
+    balloonsReward() {
+      const emojis = "✨❤😮🔥🥴⭐👀🤪😱🤡🙈🙊🙌👌💣💥🆗🆒✔💭";
+      this.$reward(`reward-option-a-${this.value}`, 'emoji', {
+        lifetime: 50,
+        startVelocity: 20,
+        angle: 120,
+        spread: 360,
+        elementCount: 35,
+        decay: 0.94,
+        emoji: emojis[Math.floor(Math.random() * emojis.length)]
+      }).reward();
+      ;
     }
   }
 };
