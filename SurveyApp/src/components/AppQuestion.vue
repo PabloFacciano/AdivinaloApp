@@ -25,13 +25,23 @@
 
         <AppQuestionOption 
           v-for="option in data.options" 
-          :key="option.id" :text="option.value"
+          :key="option.id" 
+          :text="option.value"
           :readOnly="isOptionReadOnly(option)" 
           :selected="isOptionSelected(option)"
           :isValid="isOptionValid(option)"
           :isNotValid="isNotOptionValid(option)"
           :showSpinner="isOptionSelected(option) && (this.data?.db?.saving ?? false)"
           @selectedOption="selectOption(option.id)"></AppQuestionOption>
+
+        <AppQuestionOption 
+          :text="'Prefiero no responder'"
+          :readOnly="isOptionReadOnly({ id: 0 })" 
+          :selected="isOptionSelected({ id: 0 })"
+          :isValid="isOptionValid({ id: 0 })"
+          :isNotValid="isNotOptionValid({ id: 0 })"
+          :showSpinner="isOptionSelected({ id: 0 }) && (this.data?.db?.saving ?? false)"
+          @selectedOption="selectOption(0)"></AppQuestionOption>
 
       </div>
       </p>
