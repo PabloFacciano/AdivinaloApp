@@ -8,14 +8,14 @@
       </svg>
     </div>
 
-    <div class="space-y-4" v-else-if="!this.loading && this.questions.length > 0">
+    <div class="space-y-4" v-else-if="!this.loading && this.questions.length > 0">   
       <AppQuestion 
         v-for="feedItem in this.questions" 
         :key="feedItem.id"
         :data="feedItem"
         :options="questionOptions"
         @selectedOptionChanged="selectedOptionChanged"
-      />
+      />   
       <AppPagination :data="this.surveyPagination"/>
     </div>
 
@@ -95,8 +95,8 @@ export default {
   },
   methods: {
     selectedOptionChanged(){
-      //let next = this.surveyPagination.nextPage();
-    }
+      
+    },
   },
   components: {
     AppQuestion,
