@@ -37,6 +37,7 @@ export default {
           this.mainStore.auth.session = data.session;
           this.mainStore.currentUserId = data.session.user?.id;
           this.mainStore.getUser(this.mainStore.currentUserId);
+          this.$gtag.event('newSession');
         }
       })
     },

@@ -67,8 +67,10 @@ export default {
           if (questionsCall.status == 'fulfilled'){
             this.rawQuestions = questionsCall.value;
             this.surveyPagination.max = this.rawQuestions.length;
+            this.$gtag.event('startSurvey');
           } else {
             throw new Error('No questions found', { cause: questionsCall })
+            this.$gtag.event('noQuestionsFound');
           }
         } catch (error) {
           console.error('AppSurvey.vue -- No user/s or questions found', error);

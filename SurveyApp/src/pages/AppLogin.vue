@@ -45,6 +45,7 @@ export default {
         })
         if (error) throw error
         this.emailSent = true;
+        this.$gtag.event('login', { method: 'magiclink' });
       } catch (error) {
         if (error instanceof Error) {
           alert(error.message)

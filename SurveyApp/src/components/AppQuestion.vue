@@ -113,6 +113,7 @@ export default {
     async selectOption(optionId) {
       if (this.options.readOnly) return;
       if (await this.data.saveAnswer(this.data.fromUserId, this.data.toUserId, optionId)) {
+        this.$gtag.event('saveAnswer');
         this.$emit('selectedOptionChanged', optionId);
       }
     },

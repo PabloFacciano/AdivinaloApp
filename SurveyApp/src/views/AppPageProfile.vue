@@ -166,6 +166,7 @@ export default {
       try {
         this.loadingAction = 'addFriend';
         await this.mainStore.currentUser.addFriend(this.id);
+        this.$gtag.event('addFriend');
       } catch (error) {
         console.error(`AppPageProfile.vue -- Cannot add friend [${this.id}]`, error)
       } finally {
