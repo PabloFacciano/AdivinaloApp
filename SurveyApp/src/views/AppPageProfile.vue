@@ -141,13 +141,13 @@ export default {
         {
           id: 'block',
           text: 'Bloquear',
-          visible: !this.isCurrentUser && !this.isBlocked,
+          visible: false && !this.isCurrentUser && !this.isBlocked,
           action: this.blockUser
         },
         {
           id: 'block',
           text: 'Desbloquear',
-          visible: !this.isCurrentUser && this.isBlocked,
+          visible: false && !this.isCurrentUser && this.isBlocked,
           action: this.unblockUser
         }
       ];
