@@ -1,5 +1,5 @@
 import DbObject from "./DbObject";
-import { sleep } from "../db/mocks-utils";
+import supabase from "../db/supabase"
 
 export default class Question extends DbObject{
   constructor(id, fromUserId, toUserId, question, options, selectedOption, validOption, readOnly) {
@@ -28,8 +28,19 @@ export default class Question extends DbObject{
       if (fromUserId != toUserId){
         this.readOnly = true;
       }
-      console.warn(`TO-DO: Question.js:saveAnswer fromUserId[${fromUserId}] toUserId[${toUserId}] optionId[${optionId}]`)
-      await sleep();
+
+      await supabase
+        .from('appuseranswer')
+        .upsert({ 
+          questionid: this.id,
+          questionoptionid: optionId,
+          fromuserid: fromUserId,
+          touserid: toUserId
+        }, { 
+          onConflict: 'fromuserid,touserid,questionid'
+        },
+          false // merge duplicates
+        ).select();
 
     } catch (error) {
       success = false;

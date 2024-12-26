@@ -1,7 +1,7 @@
 import DbObject from "./DbObject";
 import Pagination from "./Pagination";
 import supabase from "../db/supabase"
-import { getQuestions, sleep, isValidUUID } from "../db/mocks-utils";
+import { sleep, isValidUUID } from "../db/mocks-utils";
 import Question from "./Question";
 import QuestionOption from "./QuestionOption";
 
@@ -50,10 +50,7 @@ export default class User extends DbObject {
         param_current_user_id: _currentUserId,
         param_user_id: _id
       }).then(result => {
-        questions = result.data.map(question => {
-          console.log('question:', question);
-          debugger;
-        })
+        questions = mapQuestions(result.data, _currentUserId, _id);
       });
 
     let call3 = sleep();
@@ -93,54 +90,73 @@ export default class User extends DbObject {
       return [];
     }
   
-    // Create a map to group options by question ID
-    const questionMap = new Map();
-  
-    rawQuestions.forEach(rawQuestion => {
-      // Create a QuestionOption object
-      let option = new QuestionOption(rawQuestion.option_id, rawQuestion.option_value);
-  
-      // Check if the question already exists in the map
-      if (!questionMap.has(rawQuestion.question_id)) {
-        // If not, create a new Question object
-        let question = new Question(
-          rawQuestion.question_id, // Use rawQuestion.question_id for the question ID
-          fromUserId,
-          toUserId,
-          rawQuestion.question,
-          [], // Initialize with an empty options array
-          null, // No option has been selected yet
-          rawQuestion.valid_option_id // Pass the valid option ID
-        );
-        questionMap.set(rawQuestion.question_id, question);
-      }
-  
-      // Add the option to the corresponding question's options array
-      questionMap.get(rawQuestion.question_id).options.push(option);
-    });
-  
-    // Convert the map values to an array
-    return Array.from(questionMap.values());
+    return mapQuestions(rawQuestions, fromUserId, toUserId)
   }
   
-  async addFriend(userId){
+  async addFriend(userid){
     /* Uso en Profile */
-    console.warn(`TO-DO: User.js:addFriend user[${userId}]`)
-    await sleep();
-    this.friendsId.push(userId);
+    await supabase
+      .from('appuserfriend')
+      .upsert({ 
+        fromuserid: this.id,
+        touserid: userid
+      })
+    this.friendsId.push(userid);
   }
 
   async blockUser(userId){
     /* Uso en Profile */
-    console.warn(`TO-DO: User.js:block user[${userId}]`)
-    await sleep();
-    this.blockedsId.push(userId);
+    await supabase
+    .from('appuserfriend')
+    .upsert({ 
+      fromuserid: this.id,
+      touserid: userid,
+      disabled: true
+    })
+  this.blockedsId.push(userid);
   }
 
   async unblockUser(userId){
     /* Uso en Profile */
-    console.warn(`TO-DO: User.js:unblock user[${userId}]`)
-    await sleep();
+    await supabase
+    .from('appuserfriend')
+    .upsert({ 
+      fromuserid: this.id,
+      touserid: userid,
+      disabled: false
+    })
     this.blockedsId = this.blockedsId.filter((u) => u != userId);
   }
+}
+
+function mapQuestions(rawQuestions, fromm, too){
+  // Create a map to group options by question ID
+  const questionMap = new Map();
+    
+  rawQuestions.forEach(rawQuestion => {
+    // Create a QuestionOption object
+    let option = new QuestionOption(rawQuestion.option_id, rawQuestion.option_value);
+
+    // Check if the question already exists in the map
+    if (!questionMap.has(rawQuestion.question_id)) {
+      // If not, create a new Question object
+      let question = new Question(
+        rawQuestion.question_id, // Use rawQuestion.question_id for the question ID
+        rawQuestion.from_user_id ?? fromm,
+        rawQuestion.to_user_id ?? too,
+        rawQuestion.question,
+        [], // Initialize with an empty options array
+        rawQuestion.selected_option,
+        rawQuestion.valid_option,
+        false
+      );
+      questionMap.set(rawQuestion.question_id, question);
+    }
+
+    // Add the option to the corresponding question's options array
+    questionMap.get(rawQuestion.question_id).options.push(option);
+  });
+
+  // Convert the map values to an array
+  return Array.from(questionMap.values());
 }
