@@ -29,7 +29,7 @@ export default class Question extends DbObject{
         this.readOnly = true;
       }
 
-      await supabase
+      const result1 = await supabase
         .from('appuseranswer')
         .upsert({ 
           questionid: this.id,
@@ -40,7 +40,20 @@ export default class Question extends DbObject{
           onConflict: 'fromuserid,touserid,questionid'
         },
           false // merge duplicates
-        ).select();
+        )
+        
+        const result2 = await supabase
+        .from('appuseranswer')
+        .select('questionid, questionoptionid')
+        .eq('questionid', this.id) 
+        .eq('fromuserid', toUserId) 
+        .eq('touserid', toUserId);
+
+        if (result2.data.length > 0){
+          let valid_option = result2.data[0].questionoptionid;
+          this.validOption = valid_option;
+        }
+          
 
     } catch (error) {
       success = false;

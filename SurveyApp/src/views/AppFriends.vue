@@ -34,42 +34,35 @@ export default {
       users: []
     }
   },
-  mounted(){
-    this.updateUsers();
-  }, 
   watch: {
     list: {
-      async handler(){
-        await this.updateUsers();
+      async handler(newId){
+        await this.refreshList();
       },
       immediate: true
     }
   },
   methods: {
-    async updateUsers(){
-      let usersId = [];
-      if (this.list == 'current' || this.list == 'online') usersId = this.mainStore.currentUser?.friendsId ?? [];
-      if (this.list == 'blocked') usersId = this.mainStore.currentUser?.blockedsId ?? [];
-      this.users = await this.getUsers(usersId);
-    },
-    async getUsers(usersId) {
-      if (!usersId || usersId.length == 0) return [];
-
-      let usersToReturn = [];
-      try {
-        this.loading = true;
-        let usersCalls = usersId.map(userId => this.mainStore.getUser(userId));
-        let usersResult = await Promise.allSettled(usersCalls);
-        usersToReturn = usersResult
-          .filter(userResult => userResult.status == 'fulfilled')
-          .map(userResult => userResult.value)
-          .filter(user => ((user.online && this.list == 'online') || this.list != 'online')); // online list
-
-      } catch (error) {
-        console.error('AppFriends.vue -- Error while getting users: ', error)
-      }
+    async refreshList(){
+      this.loading = true;
+      // Save to store
+      await Promise.allSettled(
+        this.getUsersIds
+        .map(userId => this.mainStore.getUser(userId)));
+      // Get from store
+      let users = this.getUsersIds.map(userId => this.mainStore.users[userId]);
+      this.users = users;
       this.loading = false;
-      return usersToReturn;      
+    }
+  },
+  computed: {
+    getUsersIds() {
+      if (this.list == 'current' || this.list == 'online'){
+        return this.mainStore.currentUser.friendsId;
+      } else if (this.list == 'blocked'){
+        return this.mainStore.currentUser.blockedsId;
+      }
+      return [];  
     }
   },
   components: {
