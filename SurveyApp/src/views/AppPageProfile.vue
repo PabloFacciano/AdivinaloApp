@@ -11,11 +11,11 @@
     
     <div v-else-if="this.currentUser" class="transition-colors duration-200">
       <!-- Image -->
-      <div :class="{
-            'bg-sky-600': this.isCurrentUser,
-            'bg-pink-600': !this.isCurrentUser
-          }" class=" text-zinc-100 pt-4 px-8 flex justify-between items-end text-nowrap overflow-show select-none ">
-        <div class="flex justify-center items-center overflow-hidden aspect-square rounded-full p-8 text-4xl -mb-8  bg-zinc-600 border-4 border-zinc-100 dark:border-zinc-800 transition-colors duration-200" v-text="this.userInitials"></div>
+      <div class="bg-sky-600 text-zinc-100 pt-4 px-8 flex justify-between items-end text-nowrap overflow-show select-none ">
+        <div :class="{
+            'bg-sky-600': this.askingForCurrentUser,
+            'bg-pink-600': !this.askingForCurrentUser
+          }"class="flex justify-center items-center overflow-hidden aspect-square rounded-full p-8 text-4xl -mb-8 border-4 border-zinc-100 dark:border-zinc-800 transition-colors duration-200" v-text="this.userInitials"></div>
       </div>
 
       <div class="bg-zinc-100 dark:bg-zinc-800 flex justify-between items-center pt-12 px-8 pb-4 border-zinc-300 overflow-show transition-colors duration-200">
