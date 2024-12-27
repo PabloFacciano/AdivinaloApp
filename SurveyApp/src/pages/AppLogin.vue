@@ -1,6 +1,11 @@
 <template>
   <form>
-    <AppSupabaseError v-if="this.supabaseError != null" :error="this.supabaseError" />
+    <AppMessage 
+      v-if="this.supabaseError != null"
+      :title="`[${this.supabaseError.error_code}] ${this.supabaseError.error}`"
+      :subtitle="this.supabaseError.error_description"
+    />
+    
     <div class="w-full bg-zinc-800 p-8 my-4 text-center space-y-4 sm:w-3/5 lg:w-1/2 mx-auto sm:rounded-lg overflow-hidden dark:border dark:border-zinc-700">
 
       <div class="space-y-8" v-if="this.emailSent == false">
@@ -33,14 +38,17 @@
             :disabled="loading" />
         </div>
       </div>
-      <div class="space-y-8" v-if="this.emailSent">
-        <div class="text-2xl font-semibold">Email enviado!</div>
-        <div>Ingresa a tu correo, ya te enviamos un link para ingresar.</div>
-      </div>
-      <div class="space-y-8" v-if="this.passwordOk">
-        <div class="text-2xl font-semibold">Inicio de sesión correcto!</div>
-        <div>Espera un momento que actualizaremos la página.</div>
-      </div>
+
+      <AppMessage
+        v-if="this.emailSent"
+        title="Email enviado!"
+        subtitle="Ingresa a tu correo, ya te enviamos un link para ingresar."
+      />
+      <AppMessage
+        v-if="this.passwordOk"
+        title="Inicio de sesión correcto!"
+        subtitle="Espera un momento que actualizaremos la página."
+      />
 
     </div>
   </form>
@@ -49,12 +57,11 @@
 <script>
 import VueTurnstile from 'vue-turnstile';
 import supabase from '../db/supabase';
-import AppSupabaseError from '../components/AppSupabaseError.vue';
 import { useMainStore } from '../stores/main';
+import AppMessage from '../components/AppMessage.vue';
 
 export default {
   components: {
-    AppSupabaseError,
     VueTurnstile 
   },
   data() {

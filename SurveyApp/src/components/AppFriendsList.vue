@@ -2,12 +2,11 @@
   <div
     class="w-full bg-zinc-800 my-4 sm:w-3/5 lg:w-1/2 mx-auto sm:rounded-lg overflow-hidden dark:border dark:border-zinc-700">
     
-    <div v-if="!this.loading && (!this.userList || this.userList.length == 0)" class="p-8 space-y-4">
-
-      <div class=" text-2xl">No hay usuarios que mostrar</div>
-      <div>Prueba agregar más amigos y vuelve a intentarlo más tarde.</div>
-
-    </div>
+    <AppMessage 
+      v-if="!this.loading && (!this.userList || this.userList.length == 0)"
+      title="No hay usuarios que mostrar"
+      subtitle="Prueba agregar más amigos y vuelve a intentarlo más tarde."
+    />
     
     <ul role="list" class="divide-y divide-gray-100 dark:divide-zinc-700 px-4" v-else>
 
@@ -51,9 +50,15 @@
 
   </div>
 </template>
+
 <script>
+import AppMessage from './AppMessage.vue';
+
 export default {
   props: [ 'userList', 'loading' ],
+  components: {
+    AppMessage
+  },
   data() {
     return {
       

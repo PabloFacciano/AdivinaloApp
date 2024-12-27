@@ -1,6 +1,6 @@
 <template>
   <div v-if="this.mainStore.currentUser">
-    <div class="bg-sky-600 p-1 flex justify-between">
+    <div class="bg-sky-600 text-zinc-100 p-1 flex justify-between">
 
       <div class="flex items-center">
         <!-- 🍔 Menu -->
@@ -79,7 +79,7 @@
     </Transition>
     <Transition name="slide">
       <div v-show="appSidebarOpen"
-        class="bg-sky-600 shadow-xl fixed z-40 h-dvh w-4/5 left-0 top-0 sm:w-1/2 md:w-1/3 lg:w-1/4 flex flex-col"
+        class="bg-sky-600 fixed z-40 h-dvh w-4/5 left-0 top-0 sm:w-1/2 md:w-1/3 lg:w-1/4 flex flex-col"
         @click="this.appSidebarOpen = false;">
 
         <button class="p-3 hover:bg-sky-900">

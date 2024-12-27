@@ -2,10 +2,11 @@
   <div
     class="w-full sm:w-3/5 lg:w-1/2 mx-auto sm:rounded-lg overflow-hidden dark:border dark:border-zinc-700">
 
-    <div v-if="this.loadingUser" class="p-8 bg-zinc-800">
-      <div class=" text-2xl">Cargando usuario...</div>
-      <div>Espera un momento por favor.</div>
-    </div>
+    <AppMessage
+      v-if="this.loadingUser"
+      title="Cargando usuario..."
+      subtitle="Espera un momento por favor."
+    />
 
     <div v-else>
       <!-- Header -->
@@ -57,6 +58,7 @@ import Question from '../class/Question.js';
 import AppQuestionOption from './AppQuestionOption.vue';
 import * as db from '../db/supabase.js'
 import { useMainStore } from '../stores/main';
+import AppMessage from './AppMessage.vue';
 
 export default {
   emits: ['selectedOptionChanged'],
