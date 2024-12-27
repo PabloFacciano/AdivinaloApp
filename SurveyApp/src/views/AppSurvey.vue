@@ -107,7 +107,7 @@ export default {
   },
   methods: {
     selectedOptionChanged(){
-      
+      this.toUser.questions.splice(0, 0, (this.questions[0]));
     },
   },
   components: {
