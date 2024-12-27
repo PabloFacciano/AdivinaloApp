@@ -16,14 +16,14 @@
 
     <AppMessage 
       v-else-if="this.isCurrentLoggedinUser" 
-      title="No hay nada que mostrar"
-      subtitle="Responde preguntas para completar tu perfil."
+      title="Aún no respondiste ninguna pregunta 🙊"
+      subtitle="Aquí verás tus preguntas y respuestas."
       icon="x"
     />
     <AppMessage 
       v-else 
-      title="Aún no respondió ninguna pregunta..." 
-      subtitle="Vuelve a revisar más tarde."
+      title="Aún no respondiste ninguna pregunta 🙊" 
+      subtitle="Aquí verás las preguntas que le hiciste a este usuario y si fueron correctas o no."
       icon="x" 
     />
 

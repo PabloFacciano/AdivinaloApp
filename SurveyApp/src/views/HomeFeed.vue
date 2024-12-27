@@ -34,7 +34,7 @@ export default {
       try {
         await navigator.share({
           url: url,
-          text: "Agrégame como amigo"
+          text: "Hola! Estoy en Adivinalo APP, donde podés responder preguntas sobre tus amigos y ver que tánto los conoces. Regístrate y agregame como amigo usando este link:"
         });
       } catch (error) {
         console.error('HomeFeed.vue -- Error while sharing: ', error)
