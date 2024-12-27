@@ -14,7 +14,10 @@
       <div v-if="this.options.showHeader"
         class="relative flex items-center justify-between p-4 border-b border-zinc-300 dark:border-zinc-700 bg-zinc-200 dark:bg-zinc-700 transition-colors duration-200">
         <div class="flex items-center">
-          <div class="w-10 h-10 rounded-full bg-sky-600 flex items-center justify-center text-white font-bold mr-3"
+          <div :class="{
+            'bg-sky-600': this.askingForCurrentUser,
+            'bg-pink-600': !this.askingForCurrentUser
+          }" class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold mr-3"
             v-text="this.questionUser?.initials ?? '??'"></div>
           <span class="font-semibold text-zinc-800 dark:text-white" v-text="this.questionUser.name"></span>
         </div>
