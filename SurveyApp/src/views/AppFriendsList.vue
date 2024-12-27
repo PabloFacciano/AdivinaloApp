@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import AppMessage from './AppMessage.vue';
+import AppMessage from '../components2/AppMessage.vue';
 
 export default {
   props: [ 'userList', 'loading' ],

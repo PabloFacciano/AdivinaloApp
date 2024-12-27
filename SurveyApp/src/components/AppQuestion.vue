@@ -56,8 +56,7 @@
 <script>
 import Question from '../class/Question.js';
 import AppQuestionOption from './AppQuestionOption.vue';
-import * as db from '../db/supabase.js'
-import { useMainStore } from '../stores/main';
+import { useMainStore } from '../stores/main.js';
 import AppMessage from './AppMessage.vue';
 
 export default {
@@ -124,7 +123,8 @@ export default {
     }
   },
   components: {
-    AppQuestionOption
+    AppQuestionOption,
+    AppMessage
   }
 };
 </script>

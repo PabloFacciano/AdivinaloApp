@@ -3,7 +3,7 @@
     class="bg-zinc-100 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-100 w-full my-4 sm:w-3/5 lg:w-1/2 mx-auto sm:rounded-lg overflow-hidden dark:border dark:border-zinc-700">
 
     <div class="p-8 space-y-4">
-      <slot class="size-12" name="icon"></slot>
+      <AppIcon class="size-12" v-if="this.icon" :icon="this.icon" fill="#666"/>
       <div v-if="this.title" class="text-2xl" v-text="this.title"></div>
       <div v-if="this.subtitle" v-text="this.subtitle"></div>
       <div class="flex space-x-4">
@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import AppIcon from '../components2/AppIcon.vue';
 export default {
   emits: [ 'primaryActionClicked', 'secondaryActionClicked' ],
   props: {
@@ -43,6 +44,10 @@ export default {
       type: String,
       required: false
     },
+    icon: {
+      type: String,
+      required: false
+    },
   },
   data() {
     return {
@@ -51,6 +56,9 @@ export default {
   },
   methods: {
 
+  },
+  components: {
+    AppIcon
   }
 };
 </script>

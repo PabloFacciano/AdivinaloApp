@@ -1,14 +1,16 @@
 <template>
   <div class="w-full h-full space-y-4 py-8">
 
-    <div v-if="this.loading" class="w-full h-full flex justify-center items-center">
-      <svg class="animate-spin -ml-1 mr-3 h-12 w-12 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-      </svg>
-    </div>
+    <AppIcon
+      icon="spinner"
+      class="w-full h-full flex justify-center items-center"
+      v-if="this.loading"
+    />
 
-    <div class="space-y-4" v-else-if="!this.loading && this.questions.length > 0">   
+    <div 
+      class="space-y-4" 
+      v-else-if="!this.loading && this.questions.length > 0"
+    >   
       <AppQuestion 
         v-for="feedItem in this.questions" 
         :key="feedItem.id"
@@ -19,27 +21,29 @@
       <AppPagination :data="this.surveyPagination"/>
     </div>
 
-    <div
-    v-else
-    class="w-full bg-zinc-800 p-8 text-center sm:w-3/5 lg:w-1/2 mx-auto sm:rounded-lg overflow-hidden dark:border dark:border-zinc-700">
+    <AppMessage
+      v-else-if="this.askingForCurrentUser"
+      icon="x"
+      title="Ya no quedan preguntas 😥"
+      subtitle="Vuelve a intentarlo más tarde, agregamos preguntas nuevas todas las semanas!"
+    />
 
-      <div class="space-y-4" v-if="this.askingForCurrentUser">
-        <div class="text-2xl">Ya no quedan preguntas 😥</div>
-        <div>Respondiste todas las preguntas que teníamos...<br>Vuelve a intentarlo más tarde, agregamos preguntas nuevas todas las semanas!</div>
-      </div>
-      <div class="space-y-4" v-else>
-        <div class="text-2xl">Ya no quedan preguntas 😥</div>
-        <div>Tu amigo/a debe responder más preguntas para que vos puedas advinar.</div>
-      </div>
-
-    </div>
+    <AppMessage
+      v-else
+      icon="x"
+      title="Ya no quedan preguntas 😥"
+      subtitle="Tu amigo/a debe responder más preguntas para que vos puedas advinar."
+    />
 
   </div>
 </template>
 
 <script>
+import AppMessage from '../components2/AppMessage.vue';
+import AppIcon from '../components2/AppIcon.vue';
 import AppQuestion from '../components/AppQuestion.vue';
 import AppPagination from '../components/AppPagination.vue';
+
 import { useMainStore } from '../stores/main';
 import Pagination from '../class/Pagination';
 import User from '../class/User';
@@ -69,8 +73,8 @@ export default {
             this.surveyPagination.max = this.rawQuestions.length;
             this.$gtag.event('startSurvey');
           } else {
-            throw new Error('No questions found', { cause: questionsCall })
             this.$gtag.event('noQuestionsFound');
+            throw new Error('No questions found', { cause: questionsCall })
           }
         } catch (error) {
           console.error('AppSurvey.vue -- No user/s or questions found', error);
@@ -108,7 +112,9 @@ export default {
   },
   components: {
     AppQuestion,
-    AppPagination
+    AppPagination,
+    AppIcon,
+    AppMessage
   }
 };
 </script>

@@ -1,14 +1,14 @@
 <template>
   <div class="w-full h-full">
-    <div v-if="this.loadingUser">
-      <div
-        class="w-full bg-zinc-100 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-100 p-8 my-4 text-center space-y-4 sm:w-3/5 lg:w-1/2 mx-auto sm:rounded-lg overflow-hidden dark:border dark:border-zinc-700">
+    
+    <AppMessage
+      v-if="this.loadingUser"
+      icon="spinner"
+      title="Cargando usuario..."
+      :subtitle="`user#${this.id}`"
+    />
 
-        <div class=" text-2xl">Cargando usuario...</div>
-        <div>{{ 'user#' + this.id }}</div>
-
-      </div>
-    </div>
+    
     <div v-else-if="this.currentUser">
       <!-- Image -->
       <div class="bg-sky-600 text-zinc-100 pt-4 px-8 flex justify-between items-end text-nowrap overflow-show select-none ">
@@ -39,50 +39,56 @@
       </div>
 
       <!-- Tabs -->
-      <div
-        class="border-zinc-300 dark:bg-zinc-800 px-8 flex text-nowrap overflow-auto overscroll-auto hide-overscroll">
-        <RouterLink :to="`/profile/${this.id}/`" class="py-2 px-4 text-center"
-          exact-active-class="border-b-4 border-slate-200 font-medium"
-          v-if="this.isCurrentUser || (this.areFriends && !this.isBlocked)"
-          >
-          Perfil
-        </RouterLink>
-        <RouterLink :to="`/profile/${this.$route.params.id}/questions`" class="py-2 px-4 text-center"
-          exact-active-class="border-b-4 border-slate-200 font-medium"
-          v-if="this.isCurrentUser || (this.areFriends && !this.isBlocked)">
-          Preguntas
-        </RouterLink>
-        <RouterLink :to="`/profile/${this.$route.params.id}/stats`" class="py-2 px-4 text-center"
-          exact-active-class="border-b-4 border-slate-200 font-medium"
-          v-if="false && this.isCurrentUser || (this.areFriends && !this.isBlocked)">
-          Estadísticas
-        </RouterLink>
-        <RouterLink :to="`/profile/${this.$route.params.id}/activity`" class="py-2 px-4 text-center"
-          exact-active-class="border-b-4 border-slate-200 font-medium"
-          v-if="false && this.isCurrentUser">
-          Actividad
-        </RouterLink>
-      </div>
+       
+      <AppTabs 
+        :tabs="[
+          {
+            text: 'Perfil',
+            to: `/profile/${this.id}/`,
+            visible: this.isCurrentUser || (this.areFriends && !this.isBlocked)
+          },
+          {
+            text: 'Preguntas',
+            to: `/profile/${this.$route.params.id}/questions`,
+            visible: this.isCurrentUser || (this.areFriends && !this.isBlocked)
+          },
+          {
+            text: 'Estadísticas',
+            to: `/profile/${this.$route.params.id}/stats`,
+            visible: false
+          },
+          {
+            text: 'Actividad',
+            to: `/profile/${this.$route.params.id}/activity`,
+            visible: false
+          }
+        ]"
+      />
 
       <!-- Subpage -->
       <RouterView />
     </div>
-    <div v-else>
-      <div
-        class="w-full bg-zinc-100 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-100 p-8 my-4 text-center space-y-4 sm:w-3/5 lg:w-1/2 mx-auto sm:rounded-lg overflow-hidden dark:border dark:border-zinc-700">
 
-        <div class=" text-2xl">Uy! Este usuario no existe 🥴</div>
-        <div>{{ 'user#' + this.id }}</div>
-
-      </div>
-    </div>
+    <AppMessage
+      v-else
+      icon="x"
+      title="Uy! Este usuario no existe 🥴"
+      :subtitle="`user#${this.id}`"
+    />
+    
   </div>
 </template>
 
 <script>
+import AppMessage from '../components/AppMessage.vue';
+import AppTabs from '../components/AppTabs.vue';
 import { useMainStore } from '../stores/main';
 
 export default {
+  components: {
+    AppMessage,
+    AppTabs
+  },
   props: ['id'],
   data() {
     return {

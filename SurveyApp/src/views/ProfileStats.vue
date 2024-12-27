@@ -1,17 +1,17 @@
 <template>
-  <div>
+  <div class="">
     <AppWorkInProgress />
   </div>
 </template>
 
 <script>
-import AppWorkInProgress from './AppWorkInProgress.vue';
-//import { useMainStore } from '../stores/main';
+import AppWorkInProgress from '../components2/AppWorkInProgress.vue';
+// import { useMainStore } from '../stores/main';
 
 export default {
   data() {
     return {
-      //mainStore: useMainStore()
+      // mainStore: useMainStore()
     }
   },
   components: {

@@ -44,6 +44,9 @@ export default {
     askQuestions(){
       this.$router.push('/questions/' + this.mainStore.currentUser.id);
     }
+  },
+  components: {
+    AppMessage
   }
 };
 </script>

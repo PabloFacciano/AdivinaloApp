@@ -62,14 +62,14 @@ import AppMessage from '../components/AppMessage.vue';
 
 export default {
   components: {
-    VueTurnstile 
+    VueTurnstile ,
+    AppMessage
   },
   data() {
     return {
       mainStore: useMainStore(),
       token: '',
       loading: false,
-      emailSent: false,
       passwordOk: false,
       email: '',
       password: '',
