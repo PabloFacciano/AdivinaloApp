@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col h-dvh">
+  <div class="flex flex-col h-dvh transition-colors duration-200">
     <AppTitlebar />
     <router-view v-slot="{ Component, route }">
       <Transition name="page" mode="out-in">

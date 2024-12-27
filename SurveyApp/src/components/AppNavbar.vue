@@ -1,7 +1,8 @@
 <template>
-  <div v-if="this.mainStore.currentUser" class="sticky bottom-0 w-full flex justify-evenly p-1 border-t bg-gray-200 border-gray-600 dark:bg-gray-800 dark:border-gray-700">
-   
+  <div v-if="this.mainStore.currentUser" class="sticky bottom-0 w-full flex justify-evenly border-t bg-zinc-200 border-zinc-600 dark:bg-zinc-800 dark:border-zinc-700">
     <AppTabs 
+      class="justify-center text-zinc-800 dark:text-zinc-100"
+      borderClass="border-t-4 border-zinc-800 dark:border-zinc-200"
       :tabs="[
         {
           text: 'Inicio',
@@ -15,7 +16,7 @@
         },
         {
           text: 'Mi Perfil',
-          to: `/profile/${this.mainStore.currentUser.id}`,
+          to: `/profile/${this.mainStore.currentUser.id}/`,
           visible: true
         }
       ]"
@@ -25,6 +26,7 @@
 </template>
 
 <script>
+import AppTabs from './AppTabs.vue'
 import { useMainStore } from '../stores/main';
 
 export default {
@@ -32,6 +34,9 @@ export default {
     return {
       mainStore: useMainStore()
     }
+  },
+  components: {
+    AppTabs
   }
 };
 </script>

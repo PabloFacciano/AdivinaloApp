@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import AppIcon from '../components2/AppIcon.vue';
+import AppIcon from './AppIcon.vue';
 export default {
   emits: [ 'primaryActionClicked', 'secondaryActionClicked' ],
   props: {

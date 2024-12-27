@@ -1,27 +1,28 @@
 <template>
   <div
-    class="w-full sm:w-3/5 lg:w-1/2 mx-auto sm:rounded-lg overflow-hidden dark:border dark:border-zinc-700">
+    class="w-full sm:w-3/5 lg:w-1/2 mx-auto sm:rounded-lg overflow-hidden dark:border dark:border-zinc-700 transition-colors duration-200">
 
     <AppMessage
       v-if="this.loadingUser"
       title="Cargando usuario..."
       subtitle="Espera un momento por favor."
+      icon="spinner"
     />
 
     <div v-else>
       <!-- Header -->
       <div v-if="this.options.showHeader"
-        class="relative flex items-center justify-between p-4 border-b border-gray-300 dark:border-zinc-700 bg-zinc-700">
+        class="relative flex items-center justify-between p-4 border-b border-zinc-300 dark:border-zinc-700 bg-zinc-200 dark:bg-zinc-700 transition-colors duration-200">
         <div class="flex items-center">
           <div class="w-10 h-10 rounded-full bg-sky-600 flex items-center justify-center text-white font-bold mr-3"
             v-text="this.questionUser?.initials ?? '??'"></div>
-          <span class="font-semibold text-gray-800 dark:text-white" v-text="this.questionUser.name"></span>
+          <span class="font-semibold text-zinc-800 dark:text-white" v-text="this.questionUser.name"></span>
         </div>
       </div>
 
       <!-- Body -->
-      <p class="px-4 bg-zinc-800">
-      <div class="text-gray-800 dark:text-white text-xl text-center py-8 select-text" v-text="this.data.question"></div>
+      <p class="px-4 bg-zinc-100 dark:bg-zinc-800 transition-colors duration-200">
+      <div class="text-zinc-800 dark:text-white text-xl text-center py-8 select-text font-bold" v-text="this.data.question"></div>
       <div class="pb-4">
 
         <AppQuestionOption 

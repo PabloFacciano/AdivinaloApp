@@ -1,6 +1,8 @@
 <template>
   <div class="w-full h-full">
     <AppTabs 
+      class="px-4 bg-sky-600 text-zinc-100"
+      borderClass="border-b-4 border-zinc-100 dark:border-zinc-800"
       :tabs="[
         {
           text: 'En línea',
@@ -25,7 +27,7 @@
 
 <script>
 
-import AppFriendsList from './views/AppFriendsList.vue';
+import AppFriendsList from './AppFriendsList.vue';
 import AppTabs from '../components/AppTabs.vue';
 import { useMainStore } from '../stores/main';
 

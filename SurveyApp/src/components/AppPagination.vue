@@ -1,24 +1,24 @@
 <template>
   <div
-    class="w-full bg-zinc-800 flex justify-between items-center p-4 sm:w-3/5 lg:w-1/2 mx-auto sm:rounded-lg overflow-hidden dark:border dark:border-zinc-700">
+    class="w-full bg-zinc-200 dark:bg-zinc-800 flex justify-between items-center p-4 sm:w-3/5 lg:w-1/2 mx-auto sm:rounded-lg overflow-hidden dark:border dark:border-zinc-700">
 
     <div v-text="this.message"></div>
     <div class="space-x-2">
       <button
         :disabled="!this.showBackButton"
         :class="{
-          'bg-slate-300 dark:bg-zinc-700  active:bg-slate-400  hover:bg-slate-300 dark:hover:bg-zinc-600 dark:active:bg-zinc-500 cursor-pointer': this.showBackButton,
+          'bg-zinc-300 dark:bg-zinc-700  active:bg-zinc-400  hover:border-zinc-400 dark:hover:bg-zinc-600 dark:active:bg-zinc-500 cursor-pointer': this.showBackButton,
           'cursor-not-allowed': !this.showBackButton
         }"
-        class="border border-slate-300 dark:border-zinc-700 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none text-slate-800 dark:text-white"
+        class="border border-zinc-300 dark:border-zinc-700 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none text-zinc-800 dark:text-white"
         @click="previousPage">Anterior</button>
       <button
         :disabled="!this.showNextButton"
         :class="{
-          'bg-slate-300 dark:bg-zinc-700 active:bg-slate-400  hover:bg-slate-300 dark:hover:bg-zinc-600 dark:active:bg-zinc-500 cursor-pointer': this.showNextButton,
+          'bg-zinc-300 dark:bg-zinc-700 active:bg-zinc-400  hover:border-zinc-400 dark:hover:bg-zinc-600 dark:active:bg-zinc-500 cursor-pointer': this.showNextButton,
           'cursor-not-allowed': !this.showNextButton
         }"
-        class="border border-slate-300 dark:border-zinc-700 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none text-slate-800 dark:text-white"
+        class="border border-zinc-300 dark:border-zinc-700 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none text-zinc-800 dark:text-white"
         @click="nextPage">Siguiente</button>
     </div>
   </div>

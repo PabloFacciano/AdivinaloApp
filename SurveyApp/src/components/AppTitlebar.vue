@@ -1,11 +1,11 @@
 <template>
   <div v-if="this.mainStore.currentUser">
-    <div class="bg-sky-600 text-zinc-100 p-1 flex justify-between">
+    <div class="bg-sky-600 text-zinc-100 p-1 flex justify-between ">
 
       <div class="flex items-center">
         <!-- 🍔 Menu -->
         <button @click="this.appSidebarOpen = true;" type="button"
-          class="inline-flex items-center justify-center p-2 w-10 h-10 text-sm text-sky-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-sky-700 dark:focus:ring-sky-600">
+          class="inline-flex items-center justify-center p-2 w-10 h-10 text-sm text-sky-500 rounded-lg hover:bg-zinc-100 focus:outline-none focus:ring-2 focus:ring-zinc-200 dark:text-zinc-400 dark:hover:bg-sky-700 dark:focus:ring-sky-600">
           <AppIcon 
             fill="#ffffff"
             icon="mainmenu"
@@ -21,7 +21,7 @@
       <div class="space-x-2 px-4">
         <!-- Dark mode button -->
         <button @click="toggleDark" type="button"
-          class="inline-flex items-center justify-center p-2 w-10 h-10 text-sm text-sky-500 rounded-lg focus:outline-none focus:ring-2 dark:text-gray-400 hover:bg-sky-700 focus:ring-sky-600">
+          class="inline-flex items-center justify-center p-2 w-10 h-10 text-sm text-sky-500 rounded-lg focus:outline-none focus:ring-2 dark:text-zinc-400 hover:bg-sky-700 focus:ring-sky-600">
           <AppIcon 
             fill="#ffffff"
             icon="sun"
@@ -37,7 +37,7 @@
         </button>
         <!-- Side menu -->
         <button @click="signOut" type="button"
-        class="inline-flex items-center justify-center p-2 w-10 h-10 text-sm text-sky-500 rounded-lg focus:outline-none focus:ring-2 dark:text-gray-400 hover:bg-sky-700 focus:ring-sky-600">
+        class="inline-flex items-center justify-center p-2 w-10 h-10 text-sm text-sky-500 rounded-lg focus:outline-none focus:ring-2 dark:text-zinc-400 hover:bg-sky-700 focus:ring-sky-600">
           <AppIcon 
             fill="#ffffff"
             icon="exit"
@@ -48,7 +48,7 @@
 
     </div>
     <Transition name="fade">
-      <div v-show="appSidebarOpen" class="backdrop-blur-sm bg-slate-900/30 fixed h-dvh w-full left-0 top-0 p-1"
+      <div v-show="appSidebarOpen" class="backdrop-blur-sm bg-zinc-900/30 fixed h-dvh w-full left-0 top-0 p-1"
         @click="this.appSidebarOpen = false;">
 
       </div>
@@ -83,6 +83,7 @@
 </template>
 
 <script>
+import AppIcon from './AppIcon.vue';
 import supabase from '../db/supabase';
 import { useMainStore } from '../stores/main';
 
@@ -91,16 +92,19 @@ export default {
     return {
       mainStore: useMainStore(),
       appSidebarOpen: false,
-      darkMode: false
+      darkMode: true
     }
+  },
+  components: {
+    AppIcon
   },
   methods: {
     toggleDark(){
       this.darkMode = !this.darkMode;
-      console.log('darkMode', this.darkMode);
       document.documentElement.classList.toggle('dark');
     },
     async signOut(){
+      if (!confirm("¿Cerrar sesión?")) return;
       try {
         await supabase.auth.signOut();
       } catch (error) {

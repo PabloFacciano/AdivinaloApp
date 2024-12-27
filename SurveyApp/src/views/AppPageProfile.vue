@@ -9,13 +9,13 @@
     />
 
     
-    <div v-else-if="this.currentUser">
+    <div v-else-if="this.currentUser" class="transition-colors duration-200">
       <!-- Image -->
       <div class="bg-sky-600 text-zinc-100 pt-4 px-8 flex justify-between items-end text-nowrap overflow-show select-none ">
-        <div class="flex justify-center items-center overflow-hidden aspect-square rounded-full p-8 text-4xl -mb-8  bg-gray-600 border-4 border-zinc-100 dark:border-zinc-800" v-text="this.userInitials"></div>
+        <div class="flex justify-center items-center overflow-hidden aspect-square rounded-full p-8 text-4xl -mb-8  bg-zinc-600 border-4 border-zinc-100 dark:border-zinc-800 transition-colors duration-200" v-text="this.userInitials"></div>
       </div>
 
-      <div class="flex justify-between items-center pt-12 px-8 pb-4 border-zinc-300 dark:bg-zinc-800  overflow-show">
+      <div class="bg-zinc-100 dark:bg-zinc-800 flex justify-between items-center pt-12 px-8 pb-4 border-zinc-300 overflow-show transition-colors duration-200">
         <!-- Name -->
         <div>
           <h1 class="text-xl font-medium" v-text="this.currentUser.name ?? 'Loading...'"></h1>
@@ -26,13 +26,12 @@
             class="flex  text-white bg-sky-700 hover:bg-sky-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 dark:bg-sky-600 dark:hover:bg-sky-700 focus:outline-none dark:focus:ring-sky-800"
               :disabled="this.loadingAction == button.id" 
               @click="buttonClick(button)">
-              <svg v-if="this.loadingAction == button.id" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"
-                fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor"
-                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                </path>
-              </svg>
+              
+              <AppIcon
+                icon="spinner"
+                class="size-5 -ml-1 mr-3"
+                v-if="this.loadingAction == button.id"
+              />
               <span v-text="button.text"></span>
           </button>
         </div>
@@ -41,10 +40,12 @@
       <!-- Tabs -->
        
       <AppTabs 
+        class="px-4 bg-zinc-100 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-100"
+        borderClass="border-b-4 border-zinc-800 dark:border-zinc-200"
         :tabs="[
           {
             text: 'Perfil',
-            to: `/profile/${this.id}/`,
+            to: `/profile/${this.id}/info`,
             visible: this.isCurrentUser || (this.areFriends && !this.isBlocked)
           },
           {
@@ -80,6 +81,7 @@
 </template>
 
 <script>
+import AppIcon from '../components/AppIcon.vue';
 import AppMessage from '../components/AppMessage.vue';
 import AppTabs from '../components/AppTabs.vue';
 import { useMainStore } from '../stores/main';
@@ -87,7 +89,8 @@ import { useMainStore } from '../stores/main';
 export default {
   components: {
     AppMessage,
-    AppTabs
+    AppTabs,
+    AppIcon
   },
   props: ['id'],
   data() {

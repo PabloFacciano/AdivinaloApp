@@ -3,7 +3,7 @@
 
     <AppIcon
       icon="spinner"
-      class="w-full h-full flex justify-center items-center"
+      class="size-6"
       v-if="this.loading"
     />
 
@@ -39,8 +39,8 @@
 </template>
 
 <script>
-import AppMessage from '../components2/AppMessage.vue';
-import AppIcon from '../components2/AppIcon.vue';
+import AppMessage from '../components/AppMessage.vue';
+import AppIcon from '../components/AppIcon.vue';
 import AppQuestion from '../components/AppQuestion.vue';
 import AppPagination from '../components/AppPagination.vue';
 

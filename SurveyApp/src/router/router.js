@@ -4,11 +4,11 @@ import AppHome from '../views/AppHome.vue'
 import AppPageProfile from '../views/AppPageProfile.vue'
 import AppFriends from '../views/AppFriends.vue'
 import AppSurvey from '../views/AppSurvey.vue'
-import HomeFeed from '../components/HomeFeed.vue'
-import ProfileMain from '../components/ProfileMain.vue'
-import ProfileQuestions from '../components/ProfileQuestions.vue'
-import ProfileStats from '../components/ProfileStats.vue'
-import ProfileActivity from '../components/ProfileActivity.vue'
+import HomeFeed from '../views/HomeFeed.vue'
+import ProfileMain from '../views/ProfileMain.vue'
+import ProfileQuestions from '../views/ProfileQuestions.vue'
+import ProfileStats from '../views/ProfileStats.vue'
+import ProfileActivity from '../views/ProfileActivity.vue'
 
 const routes = [
   { 
@@ -73,6 +73,7 @@ const routes = [
       },
       { 
         name: 'profileMain',
+        alias: 'info',
         path: '', 
         component: ProfileMain,
         props: true,

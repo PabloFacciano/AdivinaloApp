@@ -19,7 +19,7 @@
 
 <script>
 import { useMainStore } from '../stores/main';
-import AppMessage from './AppMessage.vue';
+import AppMessage from '../components/AppMessage.vue';
 
 export default {
   data() {

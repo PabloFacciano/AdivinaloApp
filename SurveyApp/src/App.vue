@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="transition-colors duration-200">
     <MainApp v-if="this.mainStore?.auth?.session != null" />
     <AppLogin v-else />
   </div>
@@ -7,8 +7,8 @@
 
 <script>
 import { useMainStore } from './stores/main';
-import MainApp from './pages/MainApp.vue';
-import AppLogin from './pages/AppLogin.vue';
+import MainApp from './views/MainApp.vue';
+import AppLogin from './views/AppLogin.vue';
 
 export default {
   components: {

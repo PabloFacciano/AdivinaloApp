@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import AppWorkInProgress from '../components2/AppWorkInProgress.vue';
+import AppWorkInProgress from '../components/AppWorkInProgress.vue';
 //import { useMainStore } from '../stores/main';
 
 export default {

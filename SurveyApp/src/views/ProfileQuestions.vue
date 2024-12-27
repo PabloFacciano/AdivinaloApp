@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full overflow-auto" v-if="this.currentUser">
+  <div class="w-full overflow-auto transition-colors duration-200" v-if="this.currentUser">
 
     <div class="py-6 sm:mx-3 space-y-3" v-if="this.questions.length > 0">
       <AppQuestion 
@@ -33,8 +33,8 @@
 
 <script>
 import { useMainStore } from '../stores/main';
-import AppPagination from './AppPagination.vue';
-import AppQuestion from './AppQuestion.vue';
+import AppPagination from '../components/AppPagination.vue';
+import AppQuestion from '../components/AppQuestion.vue';
 import AppMessage from '../components/AppMessage.vue';
 
 export default {
