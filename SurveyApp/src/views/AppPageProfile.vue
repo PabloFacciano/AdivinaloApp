@@ -2,7 +2,7 @@
   <div class="w-full h-full">
     <div v-if="this.loadingUser">
       <div
-        class="w-full bg-zinc-800 p-8 my-4 text-center space-y-4 sm:w-3/5 lg:w-1/2 mx-auto sm:rounded-lg overflow-hidden dark:border dark:border-zinc-700">
+        class="w-full bg-zinc-100 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-100 p-8 my-4 text-center space-y-4 sm:w-3/5 lg:w-1/2 mx-auto sm:rounded-lg overflow-hidden dark:border dark:border-zinc-700">
 
         <div class=" text-2xl">Cargando usuario...</div>
         <div>{{ 'user#' + this.id }}</div>
@@ -11,7 +11,7 @@
     </div>
     <div v-else-if="this.currentUser">
       <!-- Image -->
-      <div class="bg-sky-600 pt-4 px-8 flex justify-between items-end shadow-xl text-nowrap overflow-show select-none ">
+      <div class="bg-sky-600 text-zinc-100 pt-4 px-8 flex justify-between items-end text-nowrap overflow-show select-none ">
         <div class="flex justify-center items-center overflow-hidden aspect-square rounded-full p-8 text-4xl -mb-8  bg-gray-600 border-4 border-zinc-100 dark:border-zinc-800" v-text="this.userInitials"></div>
       </div>
 
@@ -40,7 +40,7 @@
 
       <!-- Tabs -->
       <div
-        class="border-zinc-300 dark:bg-zinc-800 px-8 flex shadow-xl text-nowrap overflow-auto overscroll-auto hide-overscroll">
+        class="border-zinc-300 dark:bg-zinc-800 px-8 flex text-nowrap overflow-auto overscroll-auto hide-overscroll">
         <RouterLink :to="`/profile/${this.id}/`" class="py-2 px-4 text-center"
           exact-active-class="border-b-4 border-slate-200 font-medium"
           v-if="this.isCurrentUser || (this.areFriends && !this.isBlocked)"
@@ -69,7 +69,7 @@
     </div>
     <div v-else>
       <div
-        class="w-full bg-zinc-800 p-8 my-4 text-center space-y-4 sm:w-3/5 lg:w-1/2 mx-auto sm:rounded-lg overflow-hidden dark:border dark:border-zinc-700">
+        class="w-full bg-zinc-100 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-100 p-8 my-4 text-center space-y-4 sm:w-3/5 lg:w-1/2 mx-auto sm:rounded-lg overflow-hidden dark:border dark:border-zinc-700">
 
         <div class=" text-2xl">Uy! Este usuario no existe 🥴</div>
         <div>{{ 'user#' + this.id }}</div>
