@@ -5,7 +5,7 @@
     <AppMessage
       v-else-if="this.mainStore.currentUser.friendsId.includes(this.id)"
       title="Hola!"
-      subtitle="Si me conoces, prueba a adivinar cómo respondería yo a estas preguntas."
+      subtitle="Prueba a adivinar cómo respondería yo. Usa el botón [Preguntar] para comenzar."
       icon="addfriend"
     />
 
