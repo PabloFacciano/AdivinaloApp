@@ -134,7 +134,7 @@ export default {
       let buttons = [
         {
           id: 'ask',
-          text: 'Preguntar',
+          text: 'Descubrir',
           visible: !this.isCurrentUser && this.areFriends && !this.isBlocked,
           action: this.ask
         },
