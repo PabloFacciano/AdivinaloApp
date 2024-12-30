@@ -156,7 +156,9 @@ export default {
           this.untilNextQuestion -= timeInterval;
           return;
         } 
-        this.surveyPagination.nextPage(); 
+        if(!this.surveyPagination.nextPage()){
+          this.surveyPagination.current = 1;
+        }
         this.pageChanged();
       }, timeInterval);
     }
