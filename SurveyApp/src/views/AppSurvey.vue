@@ -34,8 +34,8 @@
 
       <AppMessage
         icon="userquestion"
-        title="¿No te gustan las preguntas?"
-        subtitle="O si ya las respondiste todas, las podés cambiar."
+        title="¿Cambiar preguntas?"
+        subtitle="Podés hacerlo en caso de que no te gusten o se hayan terminado."
         primaryActionText="Cambiar Preguntas"
         @primaryActionClicked="this.loadMoreQuestions"
       />
