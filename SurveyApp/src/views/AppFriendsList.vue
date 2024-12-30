@@ -6,7 +6,7 @@
 
     <div
       v-else
-      class="w-full bg-zinc-800 my-4 sm:w-3/5 lg:w-1/2 mx-auto sm:rounded-lg overflow-hidden dark:border dark:border-zinc-700">
+      class="w-full bg-zinc-50 dark:bg-zinc-800 my-4 sm:w-3/5 lg:w-1/2 mx-auto sm:rounded-lg overflow-hidden dark:border dark:border-zinc-700">
       <ul role="list" class="divide-y divide-zinc-100 dark:divide-zinc-700 px-4">
 
         <li class="flex justify-between gap-x-6 py-3 animate-pulse" v-for="i in 5" v-if="this.loading">
@@ -26,7 +26,7 @@
         <li v-for="user in this.userList" :key="user.id">
           <RouterLink :to="`/profile/${user.id}`" class="flex justify-between gap-x-6 py-3">
             <div class="flex min-w-0 gap-x-4">
-              <div class="relative size-8 rounded-full bg-zinc-50 dark:bg-sky-600 flex items-center justify-center">
+              <div class="relative size-8 rounded-full bg-zinc-300 dark:bg-sky-600 flex items-center justify-center">
                 <div v-if="user.online" class="absolute -bottom-0.5 -right-0.5 flex items-center justify-center">
                   <div class="p-2 absolute inline-flex h-full w-full rounded-full bg-zinc-50 dark:bg-zinc-800"></div>
                   <div class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></div>
