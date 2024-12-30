@@ -21,6 +21,9 @@ export default {
   },
   computed: {
 
+  },
+  components: {
+    
   }
 };
 </script>
